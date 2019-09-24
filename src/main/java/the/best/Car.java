@@ -4,13 +4,8 @@ public class Car extends Toy {
 
     private double speed;
 
-    public Car(String name) {
-        super(name);
-        this.speed = -1;
-    }
-
-    public Car(String name, double price, double weight, double volume, double appearance, double fun, double speed) {
-        super(name, price, weight, volume, appearance, fun);
+    public Car(String name, double price, double weight, double volume, double speed) {
+        super(name, price, weight, volume);
         this.speed = speed;
     }
 
@@ -24,6 +19,6 @@ public class Car extends Toy {
 
     @Override
     public String toString() {
-        return super.toString() + String.format("speed = %-7.2f", speed);
+        return super.toString() + String.format("speed    = %-7.2f", speed);
     }
 }

@@ -4,13 +4,8 @@ public class Ball extends Toy{
 
     private double fullness;
 
-    public Ball(String name) {
-        super(name);
-        this.fullness = -1;
-    }
-
-    public Ball(String name, double price, double weight, double volume, double appearance, double fun, double fullness) {
-        super(name, price, weight, volume, appearance, fun);
+    public Ball(String name, double price, double weight, double volume, double fullness) {
+        super(name, price, weight, volume);
         this.fullness = fullness;
     }
 
