@@ -3,6 +3,7 @@ package the.best;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class Properties {
@@ -26,7 +27,7 @@ public class Properties {
         }
     }
 
-    HashMap<Toy.Fields, Interval> properties;
+    Map<Toy.Fields, Interval> properties;
 
     public Properties() {
         properties = new HashMap<>();
