@@ -43,9 +43,10 @@ public class RoomImpl implements Room {
         resB.append(String.format("Age group: %s\nSize:      %d/%d\nPrice:     %.2f$/%.2f$\n", ageGroup, size, capacity, totalPrice, capital));
         if(toys.size() > 0){
             resB.append("\n").append(Toy.getTitles()).append("\n");
-            for(Toy toy : toys){
-                resB.append(toy.toString()).append("\n");
-            }
+            toys.stream()
+                    .forEach((toy) ->
+                            resB.append(toy.toString())
+                                    .append("\n"));
         }
         return resB.toString();
     }
