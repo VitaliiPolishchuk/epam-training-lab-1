@@ -1,5 +1,7 @@
 package the.best;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -26,6 +28,8 @@ public class RoomImpl implements Room {
         this.capital = capital;
         this.capacity = capacity;
     }
+
+
 
     public boolean canAddToy(Toy toy){
         return size < capacity && totalPrice + toy.getPrice() <= capital;

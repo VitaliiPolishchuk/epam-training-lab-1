@@ -1,11 +1,15 @@
 package the.best;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Scanner;
 
+@Service
 public class UserInterfaceServiceImpl implements UserInterfaceService {
 
-    static Room room;
+    Room room;
 
     @Override
     public void run() {
