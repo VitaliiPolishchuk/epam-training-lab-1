@@ -1,10 +1,12 @@
 package the.best;
 
+import org.apache.log4j.Logger;
+
 import java.util.List;
 import java.util.Scanner;
 
 public class UserInterfaceServiceImpl implements UserInterfaceService {
-
+    private static final Logger LOG = Logger.getLogger(UserInterfaceServiceImpl.class);
     static Room room;
 
     @Override
@@ -17,7 +19,8 @@ public class UserInterfaceServiceImpl implements UserInterfaceService {
                 "with capital 1000$ and maximum toys allowed 20.");
 
         Scanner scanner = new Scanner(System.in);
-        String[] roomArgs = scanner.nextLine().split("\\,");
+        String roomStr = scanner.nextLine();
+        String[] roomArgs = roomStr.split("\\,");
         System.out.println(roomArgs.length);
         RoomImpl.AgeGroup ageGroup = RoomImpl.AgeGroup.BABY;
         switch (Integer.parseInt(roomArgs[0])) {
@@ -43,7 +46,7 @@ public class UserInterfaceServiceImpl implements UserInterfaceService {
         room.addToy(new Ball("Adidas", 34.99, 1.67, .33, 0.98));
 
         System.out.println(room);
-
+        LOG.info("Room created \n\t" + room);
         manipulateRoom();
     }
 
@@ -80,24 +83,28 @@ public class UserInterfaceServiceImpl implements UserInterfaceService {
         Properties properties = new Properties();
 
         for(String argSearch : argsSearch){
-            Toy.Fields toyTield = Toy.Fields.PRICE;
+            Toy.Fields toyField = Toy.Fields.PRICE;
             switch (Integer
                     .parseInt(argSearch.substring(0,
                             argSearch.indexOf(":")))){
 
                 case 1:
-                    toyTield = Toy.Fields.PRICE;
+                    toyField = Toy.Fields.PRICE;
                     break;
                 case 2:
-                    toyTield = Toy.Fields.WEIGHT;
+                    toyField = Toy.Fields.WEIGHT;
                     break;
                 case 3:
-                    toyTield = Toy.Fields.VOLUME;
+                    toyField = Toy.Fields.VOLUME;
                     break;
             }
             String[] argsInterval = argSearch.substring(argSearch.indexOf(":") + 1).split("\\-");
-            properties.put(toyTield, new Properties.Interval(Double.parseDouble(argsInterval[0]),
-                    Double.parseDouble(argsInterval[1])));
+            double begin = Double.parseDouble(argsInterval[0]),
+                    end = Double.parseDouble(argsInterval[1]);
+            Properties.Interval interval = new Properties.Interval(begin,
+                    end);
+            LOG.info(String.format("Room is searched by %s field in [%f-%f]", toyField, begin, end));
+            properties.put(toyField, interval);
         }
 
 
@@ -129,7 +136,7 @@ public class UserInterfaceServiceImpl implements UserInterfaceService {
                 toyField = Toy.Fields.VOLUME;
                 break;
         }
-
+        LOG.info(String.format("Room is sorted by %s field", toyField));
         room.sort(toyField);
         System.out.println(room);
     }
@@ -217,6 +224,7 @@ public class UserInterfaceServiceImpl implements UserInterfaceService {
     private void addToyToRoom(Toy toy){
         if(room.canAddToy(toy)){
             room.addToy(toy);
+            LOG.info("toy was added\n\t" + toy.toString());
         } else {
             System.out.println("Can`t add toy");
         }
