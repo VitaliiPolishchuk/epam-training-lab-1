@@ -1,0 +1,87 @@
+CREATE TABLE IF NOT EXISTS toys (
+	id INTEGER PRIMARY KEY,
+	name TEXT NOT NULL,
+	price REAL,
+	weight REAL,
+	volume REAL
+);
+
+CREATE TABLE IF NOT EXISTS balls (
+	toy_id INTEGER PRIMARY KEY,
+	fullness REAL,
+	
+	FOREIGN KEY (toy_id) REFERENCES toys (id)
+);
+
+CREATE TABLE IF NOT EXISTS dolls (
+	toy_id INTEGER PRIMARY KEY,
+	sex_id INTEGER,
+	
+	FOREIGN KEY (toy_id) REFERENCES toys (id),
+	FOREIGN KEY (sex_id) REFERENCES sex (id)
+);
+
+CREATE TABLE IF NOT EXISTS cars (
+	toy_id INTEGER PRIMARY KEY,
+	speed REAL,
+	
+	FOREIGN KEY (toy_id) REFERENCES toys (id)
+);
+
+CREATE TABLE IF NOT EXISTS rooms (
+	id INTEGER PRIMARY KEY,
+	capital REAL,
+	capacity INTEGER,
+	age_group_id INTEGER,
+
+	FOREIGN KEY (age_group_id) REFERENCES age_groups (id)
+);
+
+CREATE TABLE IF NOT EXISTS toy_in_room (
+	toy_id INTEGER,
+	room_id INTEGER,
+
+	FOREIGN KEY (toy_id) REFERENCES toys (id),
+	FOREIGN KEY (room_id) REFERENCES rooms (id)
+);
+
+CREATE TABLE IF NOT EXISTS age_groups (
+	id INTEGER PRIMARY KEY,
+	token TEXT
+);
+
+CREATE TABLE IF NOT EXISTS sex (
+	id INTEGER PRIMARY KEY,
+	token TEXT
+);
+
+INSERT INTO sex VALUES(1, "MALE");
+INSERT INTO sex VALUES(2, "FEMALE");
+
+INSERT INTO age_groups VALUES(1, "Babe");
+INSERT INTO age_groups VALUES(2, "Teenage");
+INSERT INTO age_groups VALUES(3, "Adult");
+
+INSERT INTO toys VALUES(1, "Adidas", 34.99, 1.67, 0.33);
+INSERT INTO balls VALUES(1, 0.98);
+
+INSERT INTO toys VALUES(2, "Transformer Prime", 49.99, 3.35, 0.2);
+INSERT INTO dolls VALUES(2, 1);
+
+INSERT INTO toys VALUES(3, "Slinky® Dog", 13.99, 0.12, 0.01);
+INSERT INTO dolls VALUES(3, 1);
+
+INSERT INTO toys VALUES(4, "Lightning McQueen", 39.99, 0.5, 0.09);
+INSERT INTO cars VALUES(4, 30);
+
+INSERT INTO toys VALUES(5, "Tesla model Y", 29.99, 0.5, 0.11);
+INSERT INTO cars VALUES(5, 18.64);
+
+INSERT INTO rooms VALUES(1, 2000, 20, 2);
+
+INSERT INTO toy_in_room VALUES(1, 1);
+INSERT INTO toy_in_room VALUES(2, 1);
+INSERT INTO toy_in_room VALUES(3, 1);
+INSERT INTO toy_in_room VALUES(4, 1);
+INSERT INTO toy_in_room VALUES(5, 1);
+
